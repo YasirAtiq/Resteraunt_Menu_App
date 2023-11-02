@@ -1,18 +1,20 @@
-from typing import Any
 from django.shortcuts import render
 from django.views import generic
-from .models import Meal
-
+from .models import Meal, MEAL_TYPE
 
 class Menu(generic.ListView):
-    queryset = Meal.objects.order_by("meal")
     template_name = "index.html"
-
-    def get_context_data(self):
-        context = {"meals": "Pizza"}
-        return context
-
-
-class MenuItem(generic.DetailView):
     model = Meal
-    template_name = "meal_view_detail.html"
+
+    def get_queryset(self):
+        return Meal.objects.order_by('meal')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        meals = []
+
+        for category, category_name in MEAL_TYPE:
+            meals.append((category_name, Meal.objects.filter(category=category)))
+
+        context["meals"] = meals
+        return context
