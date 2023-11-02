@@ -10,10 +10,10 @@
         <h2>{{ category_name }}</h2>
         {% for meal in meal_list %}
             {% if meal.status == 0 %}
-            <h3><del>{{ meal.meal }}</del></h3>
+            <a href="{% url 'menu_item' meal.pk%}"><h3><del>{{ meal.meal }}</del></h3></a>
             <p>{{ meal.ingredients }}</p>
             {% else %}
-            <h3>{{ meal.meal }}</h3>
+            <a href="{% url 'menu_item' meal.pk%}"><h3>{{ meal.meal }}</h3></a>
             <p>{{ meal.ingredients }}</p>
             {% endif %}
         {% endfor %}

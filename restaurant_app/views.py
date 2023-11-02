@@ -18,3 +18,8 @@ class Menu(generic.ListView):
 
         context["meals"] = meals
         return context
+
+class MenuItemDetails(generic.DetailView):
+    template_name = "meal_view_detail.html"
+    model = Meal
+
